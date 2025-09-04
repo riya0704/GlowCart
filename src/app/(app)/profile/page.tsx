@@ -18,9 +18,11 @@ import {
   Mail,
   Shield,
   ChevronRight,
+  UserCircle,
 } from 'lucide-react';
 
 const profileMenuItems = [
+  { icon: UserCircle, text: 'Edit Profile', href: '#' },
   { icon: MapPin, text: 'My Address', href: '#' },
   { icon: Archive, text: 'Order History', href: '#' },
   { icon: Languages, text: 'Language', href: '#' },
