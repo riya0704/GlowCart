@@ -9,6 +9,10 @@ const navItems = [
 ];
 
 export default function BottomNav() {
+  // This is a placeholder for now. We will use the useRouter hook to get the current path.
+  // This is a simplified implementation.
+  const currentPath = '/profile';
+
   return (
     <nav className="fixed bottom-0 z-50 w-full border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 max-w-md items-center justify-around px-2">
@@ -16,13 +20,17 @@ export default function BottomNav() {
           <Link
             key={item.label}
             href={item.href}
-            className="flex flex-col items-center justify-center space-y-1 text-sm text-muted-foreground transition-colors hover:text-primary"
+            className={`flex flex-col items-center justify-center space-y-1 text-sm transition-colors hover:text-primary ${
+              currentPath === item.href
+                ? 'text-primary'
+                : 'text-muted-foreground'
+            }`}
           >
             <item.icon className="h-6 w-6" />
             <span
               className={
-                item.label === 'Home'
-                  ? 'font-semibold text-primary'
+                currentPath === item.href
+                  ? 'font-semibold'
                   : ''
               }
             >

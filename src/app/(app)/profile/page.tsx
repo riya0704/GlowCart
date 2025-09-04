@@ -5,81 +5,126 @@ import {
   AvatarImage,
 } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
+import { Card, CardContent } from '@/components/ui/card';
 import {
-  Archive,
   Bell,
+  ChevronRight,
+  Contact,
   FileText,
   HelpCircle,
   Languages,
   LogOut,
   MapPin,
-  Mail,
+  MoreHorizontal,
+  Pencil,
+  History,
   Shield,
-  ChevronRight,
-  UserCircle,
+  Cog,
 } from 'lucide-react';
 
-const profileMenuItems = [
-  { icon: UserCircle, text: 'Edit Profile', href: '#' },
-  { icon: MapPin, text: 'My Address', href: '#' },
-  { icon: Archive, text: 'Order History', href: '#' },
-  { icon: Languages, text: 'Language', href: '#' },
-  { icon: Bell, text: 'Notifications', href: '#' },
+const accountMenuItems = [
+  {
+    icon: MapPin,
+    text: 'Address',
+    description: 'Manage your saved address',
+    href: '#',
+  },
+  {
+    icon: History,
+    text: 'Order History',
+    description: 'View your past orders',
+    href: '#',
+  },
+  { icon: Languages, text: 'Language', description: 'English', href: '#' },
+  {
+    icon: Bell,
+    text: 'Notifications',
+    description: 'Manage your notifications',
+    href: '#',
+  },
 ];
 
 const supportMenuItems = [
-  { icon: Mail, text: 'Contact Us', href: '#' },
+  { icon: Contact, text: 'Contact Us', href: '#' },
   { icon: HelpCircle, text: 'Get Help', href: '#' },
-];
-
-const legalMenuItems = [
   { icon: Shield, text: 'Privacy Policy', href: '#' },
-  { icon: FileText, text: 'Terms & Conditions', href: '#' },
+  { icon: Cog, text: 'Terms and Conditions', href: '#' },
 ];
 
-const MenuItem = ({ icon: Icon, text, href }: { icon: React.ElementType, text: string, href: string }) => (
-  <Link href={href} className="flex items-center p-3 -mx-3 rounded-lg hover:bg-secondary transition-colors">
-    <Icon className="mr-4 h-5 w-5 text-primary" />
-    <span className="flex-grow text-foreground">{text}</span>
+const MenuItem = ({
+  icon: Icon,
+  text,
+  description,
+  href,
+}: {
+  icon: React.ElementType;
+  text: string;
+  description?: string;
+  href: string;
+}) => (
+  <Link
+    href={href}
+    className="flex items-center p-4 transition-colors hover:bg-secondary"
+  >
+    <Icon className="mr-4 h-6 w-6 text-muted-foreground" />
+    <div className="flex-grow">
+      <p className="text-foreground">{text}</p>
+      {description && <p className="text-sm text-muted-foreground">{description}</p>}
+    </div>
     <ChevronRight className="h-5 w-5 text-muted-foreground" />
   </Link>
 );
 
 export default function ProfilePage() {
   return (
-    <div className="container mx-auto max-w-2xl px-4 py-8">
-      <Card>
-        <CardHeader className="text-center">
-          <Avatar className="mx-auto h-24 w-24 border-4 border-background shadow-md">
-            <AvatarImage src="https://i.pravatar.cc/150?u=jessica-alba" />
-            <AvatarFallback>JA</AvatarFallback>
-          </Avatar>
-          <CardTitle className="mt-4 text-2xl font-bold">Jessica Alba</CardTitle>
-          <p className="text-muted-foreground">jessica.a@example.com</p>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          <div>
-            {profileMenuItems.map(item => <MenuItem key={item.text} {...item} />)}
-          </div>
-          <Separator />
-          <div>
-            {supportMenuItems.map(item => <MenuItem key={item.text} {...item} />)}
-          </div>
-          <Separator />
-          <div>
-            {legalMenuItems.map(item => <MenuItem key={item.text} {...item} />)}
-          </div>
-          <Separator />
-          <Button variant="ghost" className="w-full justify-start p-3 -mx-3 text-destructive hover:text-destructive" asChild>
-            <Link href="/login">
-              <LogOut className="mr-4 h-5 w-5" />
-              Log Out
-            </Link>
+    <div className="min-h-screen bg-secondary px-4 pb-24">
+      <div className="container mx-auto max-w-2xl">
+        <div className="flex items-center justify-between py-6">
+          <h1 className="text-3xl font-bold">Profile</h1>
+          <Button variant="ghost" size="icon">
+            <MoreHorizontal className="h-6 w-6" />
           </Button>
-        </CardContent>
-      </Card>
+        </div>
+
+        <Card className="mb-4 overflow-hidden rounded-2xl">
+          <CardContent className="flex items-center p-4">
+            <Avatar className="h-16 w-16">
+              <AvatarImage src="https://i.pravatar.cc/150?u=olivia" />
+              <AvatarFallback>O</AvatarFallback>
+            </Avatar>
+            <div className="ml-4 flex-grow">
+              <p className="text-lg font-semibold">Olivia</p>
+              <p className="text-muted-foreground">Oliva@gmail.com</p>
+            </div>
+            <Button variant="ghost" size="icon">
+              <Pencil className="h-6 w-6" />
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="mb-4 overflow-hidden rounded-2xl">
+          <div className="divide-y divide-border">
+            {accountMenuItems.map((item) => (
+              <MenuItem key={item.text} {...item} />
+            ))}
+          </div>
+        </Card>
+
+        <Card className="mb-4 overflow-hidden rounded-2xl">
+          <div className="divide-y divide-border">
+            {supportMenuItems.map((item) => (
+              <MenuItem key={item.text} {...item} />
+            ))}
+          </div>
+        </Card>
+
+        <Card className="overflow-hidden rounded-2xl">
+          <Link href="/login" className="flex items-center p-4 text-destructive transition-colors hover:bg-destructive/10">
+            <LogOut className="mr-4 h-6 w-6" />
+            <span className="font-medium">Log Out</span>
+          </Link>
+        </Card>
+      </div>
     </div>
   );
 }
